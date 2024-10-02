@@ -28,7 +28,7 @@ pipeline {
 					az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
 
 					# Effettua il deploy sul servizio App
-					az webapp up --resource-group jenkinsdemo --name frontend-test --plan ASP-jenkinsdemo-86e5
+					az webapp up --resource-group jenkinsdemo --name frontend-test
 
 					"""
 				}
