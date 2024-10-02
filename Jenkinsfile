@@ -17,7 +17,7 @@ pipeline {
 		}
 		stage('Deploy to Azure') {
 			steps {
-				withCredentials([azureServicePrincipal(credentialsId: 'azure-credentials')]) {
+				withCredentials([azureServicePrincipal(credentialsId: '02102024')]) {
 					sh """
 					# Autenticati su Azure
 					az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
