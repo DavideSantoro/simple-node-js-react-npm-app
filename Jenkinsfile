@@ -17,7 +17,7 @@ pipeline {
 		}
 		stage ('Zip Build') {
 			steps {
-				sh 'sudo zip -r build.zip build'
+				sh 'zip -r build.zip build'
 			}
 		}
 		stage('Deploy to Azure') {
