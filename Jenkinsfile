@@ -20,6 +20,11 @@ pipeline {
 				sh 'zip -r build.zip build'
 			}
 		}
+		stage('Change directory') {
+			steps {
+				sh 'cd build'
+			}
+		}
 		stage('Deploy to Azure') {
 			steps {
 				withCredentials([azureServicePrincipal(credentialsId: '02102024')]) {
@@ -28,7 +33,8 @@ pipeline {
 					az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
 
 					# Effettua il deploy sul servizio App
-					az webapp deployment source config-zip --resource-group jenkinsdemo --name frontend-test --src ./build.zip
+					az webapp up --resource-group jenkinsdemo --name frontend-test --plan "AppServicePlanName"
+
 					"""
 				}
 			}
