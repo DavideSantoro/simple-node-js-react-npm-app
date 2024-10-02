@@ -17,7 +17,7 @@ pipeline {
 		}
 		stage ('Zip Build') {
 			steps {
-				sh 'zip -r /var/lib/jenkins/build.zip build'
+				sh 'zip -r build.zip build'
 			}
 		}
 		stage('Deploy to Azure') {
@@ -28,7 +28,7 @@ pipeline {
 					az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
 
 					# Effettua il deploy sul servizio App
-					az webapp deployment source config-zip --resource-group jenkinsdemo --name frontend-test --src /var/lib/jenkins/build.zip
+					az webapp deployment source config-zip --resource-group jenkinsdemo --name frontend-test --src ./build.zip
 					"""
 				}
 			}
