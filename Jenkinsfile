@@ -15,11 +15,6 @@ pipeline {
 				}
 			}
 		}
-		stage ('Zip Build') {
-			steps {
-				sh 'zip -r build.zip build'
-			}
-		}
 		stage('Change directory') {
 			steps {
 				sh 'cd build'
