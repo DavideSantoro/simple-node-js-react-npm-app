@@ -15,11 +15,6 @@ pipeline {
 				}
 			}
 		}
-		stage ('Zip Build') {
-			steps {
-				sh 'zip -r build.zip build'
-			}
-		}
 		stage('Deploy to Azure') {
 			steps {
 				withCredentials([azureServicePrincipal(credentialsId: '02102024')]) {
