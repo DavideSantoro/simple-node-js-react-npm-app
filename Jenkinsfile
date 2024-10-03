@@ -28,7 +28,7 @@ pipeline {
                         sh """
                         az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
                         # Effettua il deploy della cartella build
-                        az webapp deployment source config --resource-group jenkinsdemo --name frontend-jenkins-test --src-path build/
+                        az webapp deployment source config --branch master --manual-integration --name frontend-jenkins-test --repo-url https://github.com/DavideSantoro/simple-node-js-react-npm-app.git
                         """
                     }
                 }
