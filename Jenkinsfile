@@ -15,20 +15,19 @@ pipeline {
                 }
             }
         }
-		stage('Deploy to Azure') {
-			steps {
-				withCredentials([azureServicePrincipal(credentialsId: '02102024')]) {
-					script {
-						// Autenticati su Azure
-						sh """
-						az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
-						# Effettua il deploy
-						az webapp up --resource-group jenkinsdemo --name frontend-test
-						"""
-					}
-				}
-			}
-		}
-
+        stage('Deploy to Azure with azcopy') {
+            steps {
+                withCredentials([azureServicePrincipal(credentialsId: '02102024')]) {
+                    script {
+                        // Autenticati su Azure
+                        sh """
+                        az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
+                        # Usa azcopy per caricare i file di build direttamente
+                        azcopy copy 'build/*' 'https://frontend-jenkins-test.scm.azurewebsites.net/api/zipdeploy'
+                        """
+                    }
+                }
+            }
+        }
     }
 }
